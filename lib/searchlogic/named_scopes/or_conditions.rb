@@ -81,6 +81,10 @@ module Searchlogic
               path = full_association_path(part, last_condition, association_details[:association])
               conditions << "#{path[:path].join("_").to_sym}_#{path[:column]}_#{path[:condition]}"
               last_condition = path[:condition] || nil
+            elsif association_details = association_condition_details(part, nil)
+              path = full_association_path(part, nil, association_details[:association])
+              conditions << "#{path[:path].join("_").to_sym}_#{path[:column]}_#{path[:condition]}"
+              last_condition = path[:condition] || nil
             elsif local_condition?(part)
               # We are a custom scope
               conditions << part
